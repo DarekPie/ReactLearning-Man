@@ -144,7 +144,7 @@ function getBook(id) {
 }
 
 // Destructuring
-
+/*
 const book = getBook(2);
 book;
 
@@ -160,6 +160,56 @@ console.log(author, title, genres);
 // const primaryGenre = genres[0];
 // const secondaryGenre = genres[1];
 
-const [primaryGenre, secondaryGenre] = genres;
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
 
-console.log(primaryGenre, secondaryGenre);
+console.log(primaryGenre, secondaryGenre, otherGenres);
+
+const newGenres = [genres, "epic fantasy", ...genres];
+console.log(newGenres);
+
+const updateBook = {
+  ...book,
+  //Adding a new property
+  moviePublicationdate: "2001-12-19",
+
+  //Overwritign an exitgin property
+  pages: 1210,
+};
+updateBook;
+
+const summary = `${title} a book ${2 + 4}`;
+summary;
+*/
+
+const books = getBooks();
+books;
+
+const x = [1, 2, 3, 4, 5, 6].map((el) => el * 2);
+console.log(x);
+
+const titles = books.map((book) => book.title);
+console.log(titles);
+
+const essentialData = books.map((book) => ({
+  title: book.title,
+  author: book.author,
+}));
+essentialData;
+
+const pagesAllBooks = books.reduce((sum, book) => {
+  return sum + book.pages;
+}, 0);
+pagesAllBooks;
+
+async function getTodos() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const data = await res.json();
+  console.log(data);
+
+  return data;
+}
+
+const todos = getTodos();
+console.log(todos);
+
+console.log("jonas");
