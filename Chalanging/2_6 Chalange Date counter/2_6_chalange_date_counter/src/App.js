@@ -1,31 +1,52 @@
-import "./styles.css"
-import { useState } from "react"
+import "./styles.css";
+import { useState } from "react";
 
 export default function App() {
   return (
     <div clssName="App">
       <Counter />
     </div>
-  )
+  );
 }
 
 function Counter() {
-  const [count, setCount] = useState(0)
-  const [step, setStep] = useState(1)
+  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
 
-  const date = new Date("june 21 2027")
-  date.setDate(date.getDate() + count)
+  const date = new Date("june 21 2027");
+  date.setDate(date.getDate() + count);
+
+  function handleReset() {
+    setCount(0);
+    setStep(0);
+  }
 
   return (
     <div>
+      <input
+        type="range"
+        min="0"
+        max="10"
+        value={step}
+        onChange={(e) => setStep(Number(e.target.value))}
+      ></input>
       <div>
         <button onClick={() => setStep((c) => c - 1)}>-</button>
-        <span>Step : {step}</span>
+
+        <span> Step:{step} </span>
         <button onClick={() => setStep((c) => c + 1)}>+</button>
+
+        <div>
+          <input
+            type="text"
+            value={count}
+            onChange={(e) => setStep(Number(e.target.value))}
+          ></input>
+        </div>
       </div>
       <div>
         <button onClick={() => setCount((c) => c - step)}>-</button>
-        <span>Count : {count}</span>
+        <span> Count : {count} </span>
         <button onClick={() => setCount((c) => c + step)}>+</button>
       </div>
 
@@ -37,6 +58,9 @@ function Counter() {
           : `${Math.abs(count)} days ago was`}
       </span>
       <span>{date.toDateString()}</span>
+      <div>
+        <button onClick={handleReset}>Reset</button>
+      </div>
     </div>
-  )
+  );
 }
