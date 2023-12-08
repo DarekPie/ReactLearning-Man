@@ -1,17 +1,28 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, desciption: "Passport", quantity: 2, packed: false },
-  { id: 2, desciption: "Socks", quantity: 12, packed: true },
-  { id: 3, desciption: "Charger", quantity: 1, packed: false },
-];
+// const initialItems = [
+//   { id: 1, desciption: "Passport", quantity: 2, packed: false },
+//   { id: 2, desciption: "Socks", quantity: 12, packed: true },
+//   { id: 3, desciption: "Charger", quantity: 1, packed: false },
+// ];
 
 export default function App() {
+  const [items, steItems] = useState([]); // [] bo jest to pusta lista
+
+  function handleAddItems(item) {
+    // setItems((items) => items.push(item));
+    steItems((items) => [...items, item]);
+  }
+
+  function handleDeleteItem(id) {
+    steItems((items) => items.filter((item) => item.id !== id));
+  }
+
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItems={handleAddItems} />
+      <PackingList items={items} onDeleteItem={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -21,14 +32,9 @@ function Logo() {
   return <h1>🌴 Far Away 🎅</h1>;
 }
 
-function Form() {
+function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [items, steItems] = useState([]); // [] bo jest to pusta lista
-
-  function handleAddItems(item) {
-    setItems((items) => items.push(item));
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,7 +43,7 @@ function Form() {
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
-    handleAddItems(newItem);
+    onAddItems(newItem);
 
     // Set initnial state
     setDescription("");
@@ -75,25 +81,26 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
-          <Item item={item} key={item.id} />
+        {items.map((item) => (
+          <Item item={item} onDeleteItem={onDeleteItem} key={item.id} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItem }) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity} {item.desciption}
+        {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      {/* // Jesli  zapomnimy o arrow function - react od razu wywola funkcje bez danych */}
+      <button onClick={() => onDeleteItem(item.id)}>❌</button>
     </li>
   );
 }
