@@ -94,10 +94,25 @@ function Form({ onAddItems }) {
 }
 
 function PackingList({ items, onDeleteItem, onToggleItems }) {
+  const [sortBy, setSortBy] = useState("input");
+  let sortedItems;
+
+  if (sortBy === "input") sortedItems = items;
+
+  if (sortBy === "description")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+
+  if (sortBy === "packed")
+    sortedItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+
   return (
     <div className="list">
       <ul>
-        {items.map((item) => (
+        {sortedItems.map((item) => (
           <Item
             item={item}
             onDeleteItem={onDeleteItem}
@@ -106,6 +121,13 @@ function PackingList({ items, onDeleteItem, onToggleItems }) {
           />
         ))}
       </ul>
+      <div className="actions">
+        <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <option value="input">Sort by input order</option>
+          <option value="description">Sort by description</option>
+          <option value="packed">Sort by packed ststus</option>
+        </select>
+      </div>
     </div>
   );
 }
@@ -128,12 +150,27 @@ function Item({ item, onDeleteItem, onToggleItems }) {
 }
 
 function Stats({ items }) {
+  if (!items.length)
+    return (
+      <p className="stats">
+        {" "}
+        <em>Start Adding some items to you packing list</em>{" "}
+      </p>
+    );
+
   const numItems = items.length;
+  const numPacked = items.filter((item) => item.packed).length;
+  const procentage = Math.round((numPacked / numItems) * 100);
+
   console.log(numItems);
 
   return (
     <footer className="stats">
-      👜You have {numItems} items on your list, and you already packed X(X%)
+      <em>
+        {procentage === 100
+          ? "You got everything! Ready to go ✈"
+          : `👜You have ${numItems} items on your list, and you already packed ${numPacked} (${procentage}%)`}
+      </em>
     </footer>
   );
 }
