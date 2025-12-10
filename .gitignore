@@ -1,4 +1,4 @@
-test/
-pizza-menu/node_modules
-pizza-menu/public
-pizza-menu/src
+node_modules
+.DS_Store
+.prettierrc
+Dockerfile
