@@ -1,7 +1,10 @@
-import { useActionState } from "react";
+import { useActionState, use } from "react";
+import { OpinionsContext } from "../store/opinions-context";
 
 export function NewOpinion() {
-  function shareOpinionAction(prevState, formData) {
+  const { addOpinion } = use(OpinionsContext);
+
+  async function shareOpinionAction(prevState, formData) {
     const title = formData.get("title");
     const body = formData.get("body");
     const userName = formData.get("userName");
@@ -31,8 +34,7 @@ export function NewOpinion() {
       };
     }
 
-    
-
+    await  addOpinion({ title, body, userName });
     return { errors: null };
   }
 
@@ -47,17 +49,32 @@ export function NewOpinion() {
         <div className="control-row">
           <p className="control">
             <label htmlFor="userName">Your Name</label>
-            <input type="text" id="userName" name="userName" defaultValue={formState.enteredValues?.userName } />
+            <input
+              type="text"
+              id="userName"
+              name="userName"
+              defaultValue={formState.enteredValues?.userName}
+            />
           </p>
 
           <p className="control">
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" name="title" defaultValue={formState.enteredValues?.title} />
+            <input
+              type="text"
+              id="title"
+              name="title"
+              defaultValue={formState.enteredValues?.title}
+            />
           </p>
         </div>
         <p className="control">
           <label htmlFor="body">Your Opinion</label>
-          <textarea id="body" name="body" rows={5} defaultValue={formState.enteredValues?.body }></textarea>
+          <textarea
+            id="body"
+            name="body"
+            rows={5}
+            defaultValue={formState.enteredValues?.body}
+          ></textarea>
         </p>
 
         {formState.errors && (
