@@ -1,28 +1,28 @@
-import { useActionState, use } from "react";
+import { useActionState, use } from 'react';
 
-import { OpinionsContext } from "../store/opinions-context";
-import Submit from "./Submit";
+import { OpinionsContext } from '../store/opinions-context';
+import Submit from './Submit';
 
 export function NewOpinion() {
   const { addOpinion } = use(OpinionsContext);
 
   async function shareOpinionAction(prevState, formData) {
-    const title = formData.get("title");
-    const body = formData.get("body");
-    const userName = formData.get("userName");
+    const title = formData.get('title');
+    const body = formData.get('body');
+    const userName = formData.get('userName');
 
     let errors = [];
 
     if (title.trim().length < 5) {
-      errors.push("Title must be at least 5 characters long.");
+      errors.push('Title must be at least five characters long.');
     }
 
     if (body.trim().length < 10 || body.trim().length > 300) {
-      errors.push("Your opinion must be between 10 and 300 characters long.");
+      errors.push('Opinion must be between 10 and 300 characters long.');
     }
 
     if (!userName.trim()) {
-      errors.push("Please provide your name.");
+      errors.push('Please provide your name.');
     }
 
     if (errors.length > 0) {
@@ -81,11 +81,12 @@ export function NewOpinion() {
 
         {formState.errors && (
           <ul className="errors">
-            {formState.errors.map((error) => {
-              <li key={error}>{error}</li>;
-            })}
+            {formState.errors.map((error) => (
+              <li key={error}>{error}</li>
+            ))}
           </ul>
         )}
+
         <Submit />
       </form>
     </div>

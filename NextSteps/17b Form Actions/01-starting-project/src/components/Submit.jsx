@@ -1,13 +1,13 @@
-import { useFormStatus } from "react-dom";
+import { useFormStatus } from 'react-dom';
 
 export default function Submit() {
-
-    const {pending} = useFormStatus();
-    console.log('pending', pending);
+  const { pending } = useFormStatus();
 
   return (
     <p className="actions">
-      <button type="submit" disabled={pending}>{pending ? 'Submitting...' : 'Submit'}</button>
+      <button type="submit" disabled={pending}>
+       {pending ? 'Submitting...' : 'Submit'} 
+      </button>
     </p>
   );
 }

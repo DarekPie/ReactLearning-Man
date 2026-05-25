@@ -1,11 +1,32 @@
 {
   "opinions": [
     {
+      "id": 1779703830290,
+      "votes": 0,
+      "userName": "asda",
+      "title": "asdasd",
+      "body": "aasdasdasdasda"
+    },
+    {
+      "id": 1716365522254,
+      "votes": 5,
+      "userName": "Maximilian",
+      "title": "Form Actions are new!",
+      "body": "A new feature added by React 19."
+    },
+    {
+      "id": 1716365070273,
+      "votes": 3,
+      "userName": "Max",
+      "title": "React is great!",
+      "body": "I really like it a lot - everyone should learn it!"
+    },
+    {
       "id": 1,
       "userName": "Maximilian Schwarzmüller",
       "title": "Do yourself a favor and learn React!",
       "body": "React is an amazing JavaScript library!\n\nDespite all it's shortcomings.",
-      "votes": -1
+      "votes": 0
     },
     {
       "id": 2,
